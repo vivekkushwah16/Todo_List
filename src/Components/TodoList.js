@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Todo from './Todo';
 import TodoForm from './TodoForm';
+import useLocalStorage from "use-local-storage";
+
 
 const TodoList = () => {
     const [list, setList] = useState([]);
+    const [todo, setTodos] = useLocalStorage("todos");
+    
+
 
     //    -----------------------Add Items In List-----------------------------------
 
@@ -13,6 +18,7 @@ const TodoList = () => {
         }
         const newList = [...list, todo];
         setList(newList);
+        setTodos(newList)
     }
 
 
@@ -26,7 +32,7 @@ const TodoList = () => {
             return;
         }
 
-        setList(prev =>
+        setTodos(prev =>
             prev.map(item =>
                 (item.key === todoId ? newValue : item)))
     }
@@ -36,7 +42,8 @@ const TodoList = () => {
     //    -----------------------Delete Items From List-----------------------------------
 
     const removeList = id => {
-        setList(list.filter((element) => element.key !== id))
+        setTodos(list.filter((element) => element.key !== id))
+        
 
     }
 
@@ -45,6 +52,7 @@ const TodoList = () => {
 
     const completeTodo = (id) => {
         console.log("clicked");
+        console.log(id)
         const updatedTodo = list.map((item) => {
             if (item.key === id) {
                 console.log(item.isComplete);
@@ -52,7 +60,8 @@ const TodoList = () => {
             }
             return item;
         });
-        setList(updatedTodo);
+        // setList(updatedTodo);
+        setTodos(updatedTodo)
     }
 
     return (
@@ -61,7 +70,7 @@ const TodoList = () => {
             <h1>What's the plane for Today?</h1>
             <TodoForm onSubmit={addList} />
           
-             <Todo todos={list} completeTodo={completeTodo} removeList={removeList} updateList={updateList} />
+             <Todo todos={todo} completeTodo={completeTodo} removeList={removeList} updateList={updateList} />
             
         </div>
 

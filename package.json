@@ -24,6 +24,7 @@
     "react-moment": "^1.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "use-local-storage": "^2.2.5",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
